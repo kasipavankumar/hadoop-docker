@@ -19,7 +19,7 @@ docker pull ghcr.io/kasipavankumar/hadoop-docker:latest
 To do so, execute:
 
 ```bash
-docker pull ghcr.io/kasipavankumar/hadoop-docker:latest
+docker run -it ghcr.io/kasipavankumar/hadoop-docker:latest
 ```
 
 _At this stage, the image will be booting up by executing all the required steps to start Hadoop._
