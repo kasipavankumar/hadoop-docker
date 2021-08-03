@@ -12,14 +12,14 @@ A Docker image to play around with [Apache Hadoop](https://hadoop.apache.org) in
 To do so, execute:
 
 ```bash
-docker pull ghcr.io/max-rocco/hadoop-docker:main
+docker pull ghcr.io/kasipavankumar/hadoop-docker:latest
 ```
 
 6. After the image has been pulled into the VM, we need to start a new container & switch into it's terminal (mostly bash). 
 To do so, execute:
 
 ```bash
-docker run -it ghcr.io/max-rocco/hadoop-docker:main
+docker pull ghcr.io/kasipavankumar/hadoop-docker:latest
 ```
 
 _At this stage, the image will be booting up by executing all the required steps to start Hadoop._
