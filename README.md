@@ -28,7 +28,11 @@ _At this stage, the image will be booting up by executing all the required steps
 
 <hr />
 
-[![Deploy Docker image](https://github.com/max-rocco/hadoop-docker/actions/workflows/build.yml/badge.svg)](https://github.com/max-rocco/hadoop-docker/actions/workflows/build.yml)
+<div align="center">
+
+[![Deploy Docker image](https://github.com/kasipavankumar/hadoop-docker/actions/workflows/deploy.yml/badge.svg)](https://github.com/kasipavankumar/hadoop-docker/actions/workflows/deploy.yml)
+
+</div>
 
 <hr />
 
