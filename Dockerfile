@@ -8,7 +8,7 @@ LABEL version="1.0.0"
 WORKDIR /
 
 # Install required dependencies
-RUN apt-get update && apt-get install -y \ 
+RUN apt-get update && apt-get install --yes --no-install-recommends \ 
     openjdk-8-jdk \
     openssh-server \
     openssh-client \
