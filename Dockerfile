@@ -1,7 +1,10 @@
 # Ubuntu as the base image
 FROM ubuntu:20.04
 
-# Set working directory to /home
+LABEL author="D. Kasi Pavan Kumar <devdkpk@gmail.com>"
+LABEL version="1.0.0"
+
+# Set working directory to /
 WORKDIR /
 
 # Install required dependencies
@@ -9,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     openjdk-8-jdk \
     openssh-server \
     openssh-client \
-    nano \
     && rm -rf /var/lib/apt/lists/*
 
 # Generate SSH key pair for password less login
@@ -18,18 +20,12 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
     && chmod 0600 ~/.ssh/authorized_keys
 
 # Download Hadoop 3.3.1
-RUN wget https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz
+RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz
 
-# Unzip the .tar.gz
-RUN tar xzf hadoop-3.3.1.tar.gz
-
-# Remove the .tar.gz file
-RUN rm ./hadoop-3.3.1.tar.gz
-
-# Hadoop home
+# Set HADOOP_HOME variable
 ENV HADOOP_HOME=/hadoop-3.3.1
 
-# Other Hadoop environment variables
+# Other Hadoop variables
 ENV HADOOP_INSTALL=${HADOOP_HOME} \
     HADOOP_MAPRED_HOME=${HADOOP_HOME} \
     HADOOP_COMMON_HOME=${HADOOP_HOME} \
@@ -42,7 +38,7 @@ ENV HADOOP_INSTALL=${HADOOP_HOME} \
     # Java home
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ \
 
-    # For start-all.sh
+    # For staring Hadoop services using `start-all.sh`
     HDFS_NAMENODE_USER="root" \
     HDFS_DATANODE_USER="root" \
     HDFS_SECONDARYNAMENODE_USER="root" \
