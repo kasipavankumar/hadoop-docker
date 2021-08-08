@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
     openjdk-8-jdk \
     openssh-server \
     openssh-client \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Generate SSH key pair for password less login
