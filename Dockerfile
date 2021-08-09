@@ -20,6 +20,11 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
     && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
     && chmod 0600 ~/.ssh/authorized_keys
 
+# Download Hadoop 3.3.1
+RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz \
+    && apt-get remove --yes wget \
+    && apt-get autoremove --yes
+
 # Set HADOOP_HOME variable
 ENV HADOOP_HOME=/hadoop-3.3.1
 
@@ -50,10 +55,5 @@ COPY /etc/* ${HADOOP_HOME}/etc/hadoop/
 
 # Copy bootstrap.sh
 COPY ./bootstrap.sh /
-
-# Download Hadoop 3.3.1
-RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz \
-    && apt-get remove --yes wget \
-    && apt-get autoremove --yes
 
 CMD [ "bash", "./bootstrap.sh" ]
