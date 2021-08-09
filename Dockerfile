@@ -1,15 +1,18 @@
 # Ubuntu as the base image
 FROM ubuntu:20.04
 
-# Set working directory to /home
+LABEL author="D. Kasi Pavan Kumar <devdkpk@gmail.com>"
+LABEL version="1.0.2"
+
+# Set working directory to /
 WORKDIR /
 
 # Install required dependencies
-RUN apt-get update && apt-get install -y \ 
+RUN apt-get update && apt-get install --yes --no-install-recommends \ 
     openjdk-8-jdk \
     openssh-server \
     openssh-client \
-    nano \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Generate SSH key pair for password less login
@@ -17,19 +20,10 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
     && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
     && chmod 0600 ~/.ssh/authorized_keys
 
-# Download Hadoop 3.3.1
-RUN wget https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz
-
-# Unzip the .tar.gz
-RUN tar xzf hadoop-3.3.1.tar.gz
-
-# Remove the .tar.gz file
-RUN rm ./hadoop-3.3.1.tar.gz
-
-# Hadoop home
+# Set HADOOP_HOME variable
 ENV HADOOP_HOME=/hadoop-3.3.1
 
-# Other Hadoop environment variables
+# Other Hadoop variables
 ENV HADOOP_INSTALL=${HADOOP_HOME} \
     HADOOP_MAPRED_HOME=${HADOOP_HOME} \
     HADOOP_COMMON_HOME=${HADOOP_HOME} \
@@ -38,11 +32,9 @@ ENV HADOOP_INSTALL=${HADOOP_HOME} \
     HADOOP_COMMON_LIB_NATIVE_DIR=${HADOOP_HOME}/lib/native \
     PATH=$PATH:${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin \
     HADOOP_OPTS="-Djava.library.path=${HADOOP_HOME}/lib/nativ" \
-
     # Java home
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ \
-
-    # For start-all.sh
+    # For staring Hadoop services using `start-all.sh`
     HDFS_NAMENODE_USER="root" \
     HDFS_DATANODE_USER="root" \
     HDFS_SECONDARYNAMENODE_USER="root" \
@@ -58,5 +50,10 @@ COPY /etc/* ${HADOOP_HOME}/etc/hadoop/
 
 # Copy bootstrap.sh
 COPY ./bootstrap.sh /
+
+# Download Hadoop 3.3.1
+RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz \
+    && apt-get remove --yes wget \
+    && apt-get autoremove --yes
 
 CMD [ "bash", "./bootstrap.sh" ]
