@@ -20,9 +20,6 @@ RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
     && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
     && chmod 0600 ~/.ssh/authorized_keys
 
-# Download Hadoop 3.3.1
-RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz
-
 # Set HADOOP_HOME variable
 ENV HADOOP_HOME=/hadoop-3.3.1
 
@@ -35,10 +32,8 @@ ENV HADOOP_INSTALL=${HADOOP_HOME} \
     HADOOP_COMMON_LIB_NATIVE_DIR=${HADOOP_HOME}/lib/native \
     PATH=$PATH:${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin \
     HADOOP_OPTS="-Djava.library.path=${HADOOP_HOME}/lib/nativ" \
-
     # Java home
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ \
-
     # For staring Hadoop services using `start-all.sh`
     HDFS_NAMENODE_USER="root" \
     HDFS_DATANODE_USER="root" \
@@ -55,5 +50,8 @@ COPY /etc/* ${HADOOP_HOME}/etc/hadoop/
 
 # Copy bootstrap.sh
 COPY ./bootstrap.sh /
+
+# Download Hadoop 3.3.1
+RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz
 
 CMD [ "bash", "./bootstrap.sh" ]
