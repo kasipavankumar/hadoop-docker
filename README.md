@@ -2,7 +2,7 @@
 
 A Docker image to play around with [Apache Hadoop](https://hadoop.apache.org) in [Pseudo Distributed Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html) (single cluster mode).
 
-### Below are the steps to play around with this image using [Play with Docker](https://labs.play-with-docker.com).
+## Below are the steps to play around with this image using [Play with Docker](https://labs.play-with-docker.com).
 
 1. First of all, create an account on [Docker Hub](https://hub.docker.com/signup).
 2. Login to [Play with Docker](https://labs.play-with-docker.com) using the Docker Hub account you just created.
@@ -25,6 +25,14 @@ docker run -it ghcr.io/kasipavankumar/hadoop-docker:latest
 _At this stage, the image will be booting up by executing all the required steps to start Hadoop._
 
 **From now on, you will be inside container's bash (terminal) and can start using Hadoop's filesystem commands.** 🚀
+
+<hr />
+
+## A note size of the image
+
+The final Docker image weighs around **1.8GB**, wherein Hadoop & Java take up the majority piece. When analyzed using [Dive](https://github.com/wagoodman/dive), the efficiency came out to be around 99% (_sweet_).
+
+![Docker image analysis](https://lh3.googleusercontent.com/keep-bbsk/AGk0z-NersED_8G-nB4mt1LH18Mqg6Q6Tb_1Wg1YcE5F6LglDrvJsYgaOpzasylVpDgLiGT9ph0GF94rgvvi5Nb0M2ZBxNYCmX31_RPXiUI=s1598)
 
 <hr />
 
