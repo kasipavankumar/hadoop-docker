@@ -2,7 +2,7 @@
 FROM ubuntu:20.04
 
 LABEL author="D. Kasi Pavan Kumar <devdkpk@gmail.com>"
-LABEL version="1.0.0"
+LABEL version="1.0.2"
 
 # Set working directory to /
 WORKDIR /
@@ -52,6 +52,8 @@ COPY /etc/* ${HADOOP_HOME}/etc/hadoop/
 COPY ./bootstrap.sh /
 
 # Download Hadoop 3.3.1
-RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz
+RUN wget -qO- https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz | tar xvz \
+    && apt-get remove --yes wget \
+    && apt-get autoremove --yes
 
 CMD [ "bash", "./bootstrap.sh" ]
