@@ -32,7 +32,7 @@ _At this stage, the image will be booting up by executing all the required steps
 
 The final Docker image weighs around **1.8GB**, wherein Hadoop & Java take up the majority piece. When analyzed using [Dive](https://github.com/wagoodman/dive), the efficiency came out to be around 99% (_sweet_).
 
-![Docker image analysis](https://lh3.googleusercontent.com/keep-bbsk/AGk0z-NersED_8G-nB4mt1LH18Mqg6Q6Tb_1Wg1YcE5F6LglDrvJsYgaOpzasylVpDgLiGT9ph0GF94rgvvi5Nb0M2ZBxNYCmX31_RPXiUI=s1598)
+![Docker image analysis](https://storage.googleapis.com/devdkpk.appspot.com/assets/hadoop-docker/hadoop-docker-dive-analysis.png)
 
 <hr />
 
